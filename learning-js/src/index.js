@@ -6,6 +6,7 @@ import faker from "faker";
 
 import CommentDetail from "./CommentDetail";
 import ApprovalCard from "./ApprovalCard";
+import Geolocation from "./Geolocation"
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
           userImg={faker.image.image()}
         />
       </ApprovalCard>
+      <Geolocation/>
     </div>
   );
 };
