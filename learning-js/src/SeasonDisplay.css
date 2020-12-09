@@ -1,0 +1,12 @@
+.season-display{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.right-align-flex-item{
+    align-self:flex-end;
+}
+.center-align-flex-item{
+    align-self:center;
+}
