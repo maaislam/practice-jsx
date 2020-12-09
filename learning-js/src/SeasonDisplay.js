@@ -25,10 +25,14 @@ const SeasonDisplay = (props) => {
 
  
   const { text, iconName } = seasonConfig[season];
+  
   return (
     <div className="season-display ">
+
       <i className={`${iconName} icon huge`}></i>
+
       <h1 className="center-align-flex-item">{text}</h1>
+
       <i className={`${iconName} icon huge right-align-flex-item`}></i>
     </div>
   );
