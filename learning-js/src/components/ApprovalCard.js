@@ -1,7 +1,7 @@
 import React from "react";
 
 const ApprovalCard = (props) => {
-console.log("🚀 ~ file: ApprovalCard.js ~ line 4 ~ ApprovalCard ~ props", props)
+
   return (
     <div className="ui card">
       <div className="content">{props.children}</div>
