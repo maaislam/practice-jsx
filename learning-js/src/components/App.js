@@ -7,10 +7,13 @@ import ApprovalCard from "./ApprovalCard";
 import Geolocation from "./Geolocation";
 import SearchBar from "./SearchBar";
 import ImageList from "./ImageList";
-
+import Accordion from "./Accordion";
+import Counter from "./Counter";
+import WikiSearch from "./WikiSearch";
 class App extends Component {
   state = {
-    images: [],
+    images: []
+  
   };
 
   onSearchSubmit = async (term) => {
@@ -18,9 +21,12 @@ class App extends Component {
     const response = await unsplash.get("/search/photos", {
       params: { query: term }
     });
-    console.log(response.data.results);
+    
     this.setState({ images: response.data.results });
   };
+
+  
+ 
 
   render() {
     return (
@@ -54,6 +60,9 @@ class App extends Component {
         <Geolocation />
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         <ImageList images = {this.state.images}/>
+        <Accordion/>
+        <Counter/>
+        <WikiSearch/>
       </>
     );
   }
