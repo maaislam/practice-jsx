@@ -4,22 +4,35 @@ import quotes from "../api/quotes";
 
 export default function Accordion() {
  
-	const [quotesArr, setQuotesArr] = useState([]);
+  const [quotesArr, setQuotesArr] = useState([]);
+  
+
+
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const onAuthorClick = (index) => {
+      if (activeIndex === index) {
+        setActiveIndex(null);
+      } else {
+        setActiveIndex(index);
+      }
+  };
 	
 	useEffect(()=>{
-		const loadQuotes = async () => {
-			const res =	await quotes.get('/quotes.json');
+    const loadQuotes = async () => {
+      const res =	await quotes.get('/quotes.json');
 			setQuotesArr(res.data.slice(0,5));
 		};
 		loadQuotes();
 	},[]);
-
-
+  
+  
   const renderQuotes = quotesArr.map((quote, index) => {
-	
+    
+    const active = index === activeIndex ? "active" : "";
 
     return (
-     <Quote quote={quote} index={index} key={quote.id}/>
+     <Quote quote={quote} index={index} key={quote.id} onAuthorClick= {onAuthorClick} classActive={active}/>
     );
   });
 

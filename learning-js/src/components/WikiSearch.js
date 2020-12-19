@@ -6,7 +6,7 @@ import WikiSearchRenderer from './WikiSearchRenderer'
 
 function WikiSearch() {
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('programming');
     //const [onFormSubmit, setOnFormSubmit] = useState(false);
 
     const [searchRes, setSearchRes] = useState([])
@@ -25,15 +25,24 @@ function WikiSearch() {
                 });
                 //setOnFormSubmit(false);
                 setSearchRes(res.data.query.search);
-                console.log(res.data.query.search);
-            };
-            if(searchTerm){
-            
-            	loadResults();
+                
+						};
 
-            }
+						if (searchTerm && !searchRes.length){
+							loadResults();
+						}else{
+							const timerId = setTimeout(() => {
 
-        
+								if(searchTerm){
+									loadResults();
+								}
+							}, 1000);
+
+							return ()=>{
+								clearTimeout(timerId);
+							}		
+						}
+						// eslint-disable-next-line		 
     }, [searchTerm]);
 
     /*const onSearchReq = (e) => {
@@ -44,7 +53,7 @@ function WikiSearch() {
     return (
         <div>
             <div className=" ui container">
-                <form className="ui segment form" >
+                <form className="ui segment form" onSubmit ={e =>e.preventDefault()}>
                     <div className="field">
                         <label>Search Wiki</label>
                         <input

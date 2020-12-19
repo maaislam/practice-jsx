@@ -10,6 +10,7 @@ import ImageList from "./ImageList";
 import Accordion from "./Accordion";
 import Counter from "./Counter";
 import WikiSearch from "./WikiSearch";
+import Dropdown from "./Dropdown";
 class App extends Component {
   state = {
     images: []
@@ -63,6 +64,7 @@ class App extends Component {
         <Accordion/>
         <Counter/>
         <WikiSearch/>
+        <Dropdown/>
       </>
     );
   }
