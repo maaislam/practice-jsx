@@ -2,13 +2,29 @@ import React, { useState, useEffect } from 'react';
 import googleTranslate from "../api/googleTranslate"
 
 const ConvertLanguage = ({ text, language }) => {
-const [translatedText, setTranslatedText] = useState('')
+const [translatedText, setTranslatedText] = useState('');
+const [debouncedText, setDebouncedText] = useState(text);
+
+
+
+    useEffect(()=>{
+        const timerId = setTimeout(()=>{
+
+           setDebouncedText(text) 
+
+        },1000);
+
+        return () => {
+            clearTimeout(timerId);
+        }
+    },[text]);
+
 
     useEffect(()=>{
         const translationReq = async () => {
             const res = await googleTranslate.post('',{},{
                 params: {
-                    q: text,
+                    q: debouncedText,
                     target: language.value,
                     key: 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM',
                 },
@@ -19,7 +35,7 @@ const [translatedText, setTranslatedText] = useState('')
 
 
 
-    },[text,language])
+    },[debouncedText,language])
 
 
     return (
