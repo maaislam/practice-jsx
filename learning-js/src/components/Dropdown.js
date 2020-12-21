@@ -6,7 +6,8 @@ const Dropdown = ({headLabel, options, onSelectionChange, selectedOption }) => {
 
   useEffect(() => {
     const onBodyClick = (e) => {
-      if (ref.current.contains(e.target)) {
+      console.log(ref.current)
+      if (ref.current && ref.current.contains(e.target) ) {
         return;
       }
       setOpen(false);
@@ -17,7 +18,7 @@ const Dropdown = ({headLabel, options, onSelectionChange, selectedOption }) => {
     return () => {
       document.body.removeEventListener("click", onBodyClick);
     };
-  }, []);
+  });
 
   const renderedOptions = options.map((option) => {
     if (option.value === selectedOption.value) {
