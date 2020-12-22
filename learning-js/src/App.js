@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import unsplash from "./api/unsplash";
+import youtube from "./api/youtube";
 import faker from "faker";
 
+import VideoList from "./components/VideoList";
+import VideoDetail from "./components/VideoDetail";
 import CommentDetail from "./components/CommentDetail";
 import ApprovalCard from "./components/ApprovalCard";
 import Geolocation from "./components/Geolocation";
@@ -34,13 +37,15 @@ class App extends Component {
   state = {
     images: [],
     selectedDropdownItem: this.options[0],
+    videos: [],
+    selectedVideo: null,
   };
 
   onSelectionChange = (item) => {
     this.setState({ selectedDropdownItem: item });
   };
 
-  onSearchSubmit = async (term) => {
+  onImageSearchSubmit = async (term) => {
     const response = await unsplash.get("/search/photos", {
       params: { query: term },
     });
@@ -48,12 +53,52 @@ class App extends Component {
     this.setState({ images: response.data.results });
   };
 
+  onVideoSearchSubmit = async (term) => {
+    const response = await youtube.get("/search", {
+      params: {
+        q: term,
+      },
+    });
+    console.log("onVideoSearchSubmit= ~ response", response);
+
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0],
+    });
+  };
+
+  onVideoSelect = (video) => {
+    this.setState({ selectedVideo: video });
+  };
+
+  componentDidMount() {
+    this.onVideoSearchSubmit("bulding");
+  }
+
   render() {
     return (
       <>
-        <Header/>
+        <Header />
         <Route path="/">
-          Home
+          <div>
+            <SearchBar
+              onSearchSubmit={this.onVideoSearchSubmit}
+              searchBarTitle="Video Search"
+            />
+          </div>
+          <div className="ui grid segment container">
+            <div className="ui row">
+              <div className="eleven wide column">
+                <VideoDetail selectedVideo={this.state.selectedVideo} />
+              </div>
+              <div className="five wide column">
+                <VideoList
+                  videos={this.state.videos}
+                  onVideoSelect={this.onVideoSelect}
+                />
+              </div>
+            </div>
+          </div>
         </Route>
         <Route path="/commentsapproval">
           <div className="ui segment container comments">
@@ -87,7 +132,10 @@ class App extends Component {
           <Geolocation />
         </Route>
         <Route path="/search">
-          <SearchBar onSearchSubmit={this.onSearchSubmit} />
+          <SearchBar
+            onSearchSubmit={this.onImageSearchSubmit}
+            searchBarTitle="Image Search"
+          />
           <ImageList images={this.state.images} />
         </Route>
         <Route path="/accordion">

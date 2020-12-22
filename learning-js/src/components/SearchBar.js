@@ -18,7 +18,7 @@ class SearchBar extends Component {
       <div className=" ui container">
         <form className="ui segment form" onSubmit={this.onFormSubmit}>
           <div className="field">
-            <label>Search Image</label>
+            <label>{this.props.searchBarTitle}</label>
             <input
               type="text"
               value={this.state.searchText}

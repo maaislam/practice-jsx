@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import wiki from '../api/wiki'
 import WikiSearchRenderer from './WikiSearchRenderer'
-
+import Loader from './Loader';
 
 
 function WikiSearch() {
 
-    const [searchTerm, setSearchTerm] = useState('programming');
+    const [searchTerm, setSearchTerm] = useState('javascript');
     //const [onFormSubmit, setOnFormSubmit] = useState(false);
 
-    const [searchRes, setSearchRes] = useState([])
+    const [searchRes, setSearchRes] = useState([]);
+
+    const [totalHits, setTotalHits] = useState(null);
+    
 
     useEffect(()=>{
 
@@ -24,6 +27,7 @@ function WikiSearch() {
                     }
                 });
                 //setOnFormSubmit(false);
+                setTotalHits(res.data.query.searchinfo.totalhits)
                 setSearchRes(res.data.query.search);
                 
 						};
@@ -45,11 +49,15 @@ function WikiSearch() {
 						// eslint-disable-next-line		 
     }, [searchTerm]);
 
-    /*const onSearchReq = (e) => {
-        e.preventDefault();
-        setOnFormSubmit(true);
-    }*/
-
+    const renderResults = () => {
+        if(searchRes.length>0){
+            return <WikiSearchRenderer searchRes={searchRes}/>
+        }else if(totalHits===0){
+           return <Loader message="No result found. Try a different search term." loaderSize="huge"/>
+        }else{
+            return <Loader />
+        }
+    }
     return (
         <div>
             <div className=" ui container">
@@ -65,7 +73,7 @@ function WikiSearch() {
                     </div>
                 </form>
             </div>
-            <WikiSearchRenderer searchRes={searchRes}/>
+            <div className="ui segment container" style={{minHeight: '100px'}}>{renderResults()}</div>
         </div>
     )
 }
