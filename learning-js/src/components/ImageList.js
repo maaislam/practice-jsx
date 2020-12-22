@@ -1,6 +1,7 @@
 import React from "react";
 import "./ImageList.css";
 import ImageCard from './ImageCard';
+import Loader from "./Loader"
 
 
 
@@ -21,7 +22,9 @@ const ImageList = (props) => {
 
     return <div className="ui segment container image-list">{images}</div>;
   }else{
-    return null
+    return (
+      <Loader/>
+    )
   }
 };
 

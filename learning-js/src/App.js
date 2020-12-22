@@ -59,7 +59,7 @@ class App extends Component {
         q: term,
       },
     });
-    console.log("onVideoSearchSubmit= ~ response", response);
+    
 
     this.setState({
       videos: response.data.items,
@@ -72,7 +72,8 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.onVideoSearchSubmit("bulding");
+    this.onImageSearchSubmit('sea')
+    this.onVideoSearchSubmit('bulding');
   }
 
   render() {
@@ -86,16 +87,19 @@ class App extends Component {
               searchBarTitle="Video Search"
             />
           </div>
-          <div className="ui grid segment container">
+          <div className="ui grid container" style={{marginTop:'10px'}}>
             <div className="ui row">
               <div className="eleven wide column">
                 <VideoDetail selectedVideo={this.state.selectedVideo} />
               </div>
               <div className="five wide column">
-                <VideoList
+                <div className="ui segment container">
+                  <VideoList
                   videos={this.state.videos}
                   onVideoSelect={this.onVideoSelect}
                 />
+                </div>
+                
               </div>
             </div>
           </div>
