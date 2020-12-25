@@ -1,35 +1,39 @@
 import React from 'react';
-import Link from './Link'
-
+//import Link from './Link'
+import {Link} from 'react-router-dom'
 const Header = () => {
     return (
         <div className="ui secondary pointing menu">
-            <Link href="/" className="item">
+            <Link to="/YoutubeSearch" className="item">Youtube Search</Link>
+            <Link to="/" className="item">
                 Home
             </Link>
-            <Link href="/commentsapproval" className="item">
+            <Link to="/commentsapproval" className="item">
                 Comments Approval
             </Link>
-            <Link href="/geolocation" className="item">
+            <Link to="/geolocation" className="item">
                 Geolocation
             </Link>
-            <Link href="/search" className="item">
-               Search
+            <Link to="/imageSearchPage" className="item">
+               Image Search
             </Link>
-            <Link href="/accordion" className="item">
+            <Link to="/accordion" className="item">
                 Accordion
             </Link>
-            <Link href="/counter" className="item">
+            <Link to="/counter" className="item">
                 Counter
             </Link>
-            <Link href="/dropdown" className="item">
+            <Link to="/dropdown" className="item">
                 Dropdown
             </Link>
-            <Link href="/translate" className="item">
+            <Link to="/translate" className="item">
                 Translate
             </Link>
-            <Link href="/searchwiki" className="item">
+            <Link to="/searchwiki" className="item">
                 Wiki Search
+            </Link>
+            <Link to="/signup" className="item">
+                Signup Form
             </Link>
         </div>
     );
