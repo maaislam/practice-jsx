@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import UserContext from "./context/userContext";
 
 import authService from "./api/authServer";
-
+import Home from './components/pages/Home';
 import YoutubeSearch from "./components/pages/YoutubeSearch";
 import ImageSearchPage from "./components/pages/ImageSearchPage";
 import RandomPractice from "./components/pages/RandomPractice";
@@ -49,6 +49,7 @@ const App = () => {
         <UserContext.Provider value={{ auth, setAuth }}>
           <Header />
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route exact path="/YoutubeSearch" component={YoutubeSearch} />
             <Route exact path="/imageSearchPage" component={ImageSearchPage} />
             <Route exact path="/components" component={RandomPractice} />

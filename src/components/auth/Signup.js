@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import userContext from "../../context/userContext";
 import authService from "../../api/authServer";
 import authValidationSchema from "./authValidationSchema";
+import ErrorMsg from './ErrorMsg';
 import "../Form.css";
 
 const Signup = () => {
@@ -41,7 +42,7 @@ const Signup = () => {
       console.log(window.localStorage);
       history.push("/");
     } catch (error) {
-      console.log("🚀 ~ file: Signup.js ~ line 44 ~ onSubmit ~ error", error)
+      
       setErr(error.response.data.msg)
     }
   };
@@ -121,13 +122,7 @@ const Signup = () => {
           <div className="error-msg">{formik.errors.passwordCheck}</div>
         ) : null}
       </div>
-      {err ? 
-      (<div className="ui error message">
-        <div className="header">Action Forbidden</div>
-        <p>
-          {err}
-        </p>
-      </div>):null}
+      <ErrorMsg err={err}/>
       
       <button type="submit" className="ui button primary">
         Submit

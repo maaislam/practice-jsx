@@ -1,48 +1,71 @@
-import React from "react";
-import { useFormik } from "formik";
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
+import userContext from '../../context/userContext';
+import authService from '../../api/authServer';
+import authValidationSchema from './authValidationSchema';
+import ErrorMsg from './ErrorMsg';
 
-import authValidationSchema from "./authValidationSchema";
-import "../Form.css";
+import '../Form.css';
 
 const SingIn = () => {
+  const { setAuth } = useContext(userContext);
+  const [err, setErr] = useState(null);
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
-     
-      email: "",
-      password: "",
-     
+      email: '',
+      password: '',
     },
     validationSchema: authValidationSchema,
-
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
   });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { email, password } = formik.values;
+      const loginRes = await authService.post('/users/login', {
+        email,
+        password,
+      });
+
+      setAuth({
+        token: loginRes.data.token,
+        user: loginRes.data.user,
+      });
+      window.localStorage.setItem('auth-token', loginRes.data.token);
+
+      history.push('/');
+    } catch (error) {
+      setErr(error.response.data.msg);
+    }
+  };
 
   const displayErr = (touched, error) => {
-    return touched && error ? "error" : "";
+    return touched && error ? 'error' : '';
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="ui form raised segment container">
-     
-      
+    <form
+      onSubmit={onSubmit}
+      className={`ui form ${
+        err ? 'error' : ''
+      } raised padded segment container`}
+    >
       <div
         className={`field ${displayErr(
           formik.touched.email,
           formik.errors.email
         )}`}
       >
-        <label htmlFor="email">Email Address</label>
+        <label htmlFor='email'>Email Address</label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          
-          {...formik.getFieldProps("email")}
+          id='email'
+          name='email'
+          type='email'
+          {...formik.getFieldProps('email')}
         />
         {formik.touched.email && formik.errors.email ? (
-          <div className="error-msg">{formik.errors.email}</div>
+          <div className='error-msg'>{formik.errors.email}</div>
         ) : null}
       </div>
       <div
@@ -51,19 +74,19 @@ const SingIn = () => {
           formik.errors.password
         )}`}
       >
-        <label htmlFor="password">Password</label>
+        <label htmlFor='password'>Password</label>
         <input
-          id="password"
-          name="password"
-          type="password"
-          {...formik.getFieldProps("password")}
+          id='password'
+          name='password'
+          type='password'
+          {...formik.getFieldProps('password')}
         />
         {formik.touched.password && formik.errors.password ? (
-          <div className="error-msg">{formik.errors.password}</div>
+          <div className='error-msg'>{formik.errors.password}</div>
         ) : null}
       </div>
-      
-      <button type="submit" className="ui button primary">
+      <ErrorMsg err={err} />
+      <button type='submit' className='ui button primary'>
         Login
       </button>
     </form>
