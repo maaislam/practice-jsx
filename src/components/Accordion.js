@@ -16,11 +16,16 @@ export default function Accordion() {
   };
 
   useEffect(() => {
+    let mounted =true;
     const loadQuotes = async () => {
       const res = await quotes.get("/quotes.json");
-      setQuotesArr(res.data.slice(0, 5));
+      if(mounted){
+        setQuotesArr(res.data.slice(0, 5)) 
+      }
     };
     loadQuotes();
+    return () => mounted = false
+    
   }, []);
 
   const renderQuotes = quotesArr.map((quote, index) => {

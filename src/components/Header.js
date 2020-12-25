@@ -1,6 +1,7 @@
 import React from "react";
-//import Link from './Link'
+
 import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <div className="ui secondary pointing menu">
@@ -10,23 +11,11 @@ const Header = () => {
       <Link to="/YoutubeSearch" className="item">
         Youtube Search
       </Link>
-      <Link to="/commentsapproval" className="item">
-        Comments Approval
-      </Link>
-      <Link to="/geolocation" className="item">
-        Geolocation
-      </Link>
       <Link to="/imageSearchPage" className="item">
         Image Search
       </Link>
-      <Link to="/accordion" className="item">
-        Accordion
-      </Link>
-      <Link to="/counter" className="item">
-        Counter
-      </Link>
-      <Link to="/dropdown" className="item">
-        Dropdown
+      <Link to="/components" className="item">
+        Components
       </Link>
       <Link to="/translate" className="item">
         Translate
