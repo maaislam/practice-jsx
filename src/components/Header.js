@@ -23,8 +23,11 @@ const Header = () => {
       <Link to="/searchwiki" className="item">
         Wiki Search
       </Link>
-      <Link to="/signup" className="item">
-        Signup Form
+      <Link to="/auth/register" className="item">
+        Register
+      </Link>
+      <Link to="/auth/login" className="item">
+        Login
       </Link>
     </div>
   );
