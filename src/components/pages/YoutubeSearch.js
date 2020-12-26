@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import youtube from '../../api/youtube';
-
+import PageVariants from './PageVariants';
+import PageTransition from './PageTransition';
 import SearchBar from '../SearchBar';
 import VideoDetail from '../VideoDetail';
 import VideoList from '../VideoList';
@@ -28,9 +29,11 @@ const YoutubeSearch = () => {
 
   return (
     <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
+      exit='out'
+      animate='in'
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
     >
       <div>
         <SearchBar onSearchSubmit={setTerm} searchBarTitle='Video Search' />

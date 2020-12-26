@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Dropdown from './Dropdown';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/pages/PageTransition';
+import PageVariants from '../components/pages/PageVariants';
 
 import ConvertLanguage from './ConvertLanguage';
 
@@ -29,19 +30,19 @@ const Translate = () => {
   const [text, setText] = useState('');
 
   return (
-    <React.Fragment>
-      <motion.div
-        exit='out'
-        animate='in'
-        initial='out'
-        variants={PageTransition}
-        className='ui form segment container'
-      >
+    <motion.div
+      exit='out'
+      animate='in'
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
+    >
+      <div className='ui form segment container'>
         <div className='field'>
           <label>Enter Text</label>
           <input value={text} onChange={(e) => setText(e.target.value)} />
         </div>
-      </motion.div>
+      </div>
       <Dropdown
         headLabel='Select a Language'
         options={options}
@@ -49,7 +50,7 @@ const Translate = () => {
         onSelectionChange={setLanguage}
       />
       <ConvertLanguage language={language} text={text} />
-    </React.Fragment>
+    </motion.div>
   );
 };
 

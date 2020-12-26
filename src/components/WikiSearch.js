@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/pages/PageTransition';
+import PageVariants from '../components/pages/PageVariants';
 
 import wiki from '../api/wiki';
 import WikiSearchRenderer from './WikiSearchRenderer';
@@ -64,9 +65,9 @@ function WikiSearch() {
     <motion.div
       exit='out'
       animate='in'
-      initial='out'
-      variants={PageTransition}
-      v
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
     >
       <div className=' ui container'>
         <form className='ui segment form' onSubmit={(e) => e.preventDefault()}>

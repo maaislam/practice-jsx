@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import unsplash from '../../api/unsplash';
 import { motion } from 'framer-motion';
+import PageVariants from './PageVariants';
 import PageTransition from './PageTransition';
 import SearchBar from '../SearchBar';
 import ImageList from '../ImageList';
@@ -26,7 +27,13 @@ const ImageSearchPage = () => {
   }, [term]);
 
   return (
-    <motion.div exit='out' animate='in' initial='out' variants={PageTransition}>
+    <motion.div
+      exit='out'
+      animate='in'
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
+    >
       <SearchBar onSearchSubmit={setTerm} searchBarTitle='Image Search' />
       <ImageList images={images} />
     </motion.div>

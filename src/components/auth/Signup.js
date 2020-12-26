@@ -8,6 +8,7 @@ import ErrorMsg from './ErrorMsg';
 import '../Form.css';
 
 import { motion } from 'framer-motion';
+import PageVariants from '../pages/PageVariants';
 import PageTransition from '../pages/PageTransition';
 
 const Signup = () => {
@@ -53,8 +54,9 @@ const Signup = () => {
     <motion.form
       exit='out'
       animate='in'
-      initial='out'
-      variants={PageTransition}
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
       onSubmit={onSubmit}
       className={`ui form ${
         err ? 'error' : ''

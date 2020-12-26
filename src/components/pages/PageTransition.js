@@ -1,10 +1,7 @@
 const PageTransition = {
-  in: {
-    opacity: 1,
-  },
-  out: {
-    opacity: 0,
-  },
+  type: 'tweem',
+  ease: 'anticipate',
+  duration: 1,
 };
 
 export default PageTransition;

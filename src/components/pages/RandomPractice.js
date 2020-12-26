@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import PageVariants from './PageVariants';
 import PageTransition from './PageTransition';
 
 import Accordion from '../Accordion';
@@ -27,7 +28,13 @@ const RandomPractice = () => {
   const [selectedDropdownItem, setSelectedDropdownItem] = useState(options[0]);
 
   return (
-    <motion.div exit='out' animate='in' initial='out' variants={PageTransition}>
+    <motion.div
+      exit='out'
+      animate='in'
+      initial='initial'
+      variants={PageVariants}
+      transition={PageTransition}
+    >
       <Accordion />
       <Counter />
       <Dropdown
