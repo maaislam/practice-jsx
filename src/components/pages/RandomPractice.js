@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import PageTransition from './PageTransition';
 
 import Accordion from '../Accordion';
 import Counter from '../Counter';
@@ -8,42 +9,37 @@ import CommentApprovalPage from './CommentApprovalPage';
 import Geolocation from '../Geolocation';
 
 const options = [
-    {
-      label: "This color is red",
-      value: "red",
-    },
-    {
-      label: "This color is blue",
-      value: "blue",
-    },
-    {
-      label: "This color is green",
-      value: "green",
-    },
-  ];
+  {
+    label: 'This color is red',
+    value: 'red',
+  },
+  {
+    label: 'This color is blue',
+    value: 'blue',
+  },
+  {
+    label: 'This color is green',
+    value: 'green',
+  },
+];
 
 const RandomPractice = () => {
+  const [selectedDropdownItem, setSelectedDropdownItem] = useState(options[0]);
 
-
-    const [selectedDropdownItem, setSelectedDropdownItem]=useState(options[0])
-
-
-
-    return (
-        <div>
-            <Accordion/>
-            <Counter/>
-            <Dropdown
-                headLabel="Select a Color"
-                options={options}
-                onSelectionChange={setSelectedDropdownItem}
-                selectedOption={selectedDropdownItem}
-            />
-            <CommentApprovalPage/>
-            <Geolocation/>
-
-        </div>
-    );
-}
+  return (
+    <motion.div exit='out' animate='in' initial='out' variants={PageTransition}>
+      <Accordion />
+      <Counter />
+      <Dropdown
+        headLabel='Select a Color'
+        options={options}
+        onSelectionChange={setSelectedDropdownItem}
+        selectedOption={selectedDropdownItem}
+      />
+      <CommentApprovalPage />
+      <Geolocation />
+    </motion.div>
+  );
+};
 
 export default RandomPractice;

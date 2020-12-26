@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import userContext from '../context/userContext';
+import { UserContext } from '../context/UserContext';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const history = useHistory();
 
-  const { auth, setAuth } = useContext(userContext);
+  const { auth, setAuth } = useContext(UserContext);
   const logout = () => {
     setAuth({
       token: undefined,
       user: undefined,
     });
     window.localStorage.setItem('auth-token', '');
-    history.push('/');
+    history.push('/auth/login');
   };
   return (
     <div className='ui secondary pointing menu'>

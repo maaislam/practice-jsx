@@ -1,16 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
-import userContext from '../../context/userContext';
+import { UserContext } from '../../context/UserContext';
 import authService from '../../api/authServer';
 import authValidationSchema from './authValidationSchema';
 import ErrorMsg from './ErrorMsg';
 import '../Form.css';
 
+import { motion } from 'framer-motion';
+import PageTransition from '../pages/PageTransition';
+
 const Signup = () => {
   const [err, setErr] = useState(null);
   const history = useHistory();
-  const { setAuth } = useContext(userContext);
+  const { setAuth } = useContext(UserContext);
   const formik = useFormik({
     initialValues: {
       displayName: '',
@@ -47,7 +50,11 @@ const Signup = () => {
   };
 
   return (
-    <form
+    <motion.form
+      exit='out'
+      animate='in'
+      initial='out'
+      variants={PageTransition}
       onSubmit={onSubmit}
       className={`ui form ${
         err ? 'error' : ''
@@ -128,7 +135,7 @@ const Signup = () => {
       <button type='submit' className='ui button primary'>
         Submit
       </button>
-    </form>
+    </motion.form>
   );
 };
 
