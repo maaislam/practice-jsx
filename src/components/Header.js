@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import userContext from '../context/userContext';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
+  const history = useHistory();
+
   const { auth, setAuth } = useContext(userContext);
   const logout = () => {
     setAuth({
@@ -10,41 +14,79 @@ const Header = () => {
       user: undefined,
     });
     window.localStorage.setItem('auth-token', '');
+    history.push('/');
   };
   return (
     <div className='ui secondary pointing menu'>
-      <Link to='/' className='item'>
+      <NavLink to='/' className='item' activeClassName='active' exact>
         Home
-      </Link>
-      <Link to='/YoutubeSearch' className='item'>
+      </NavLink>
+      <NavLink
+        to='/YoutubeSearch'
+        className={`item ${!auth.token ? 'disabled' : ''}`}
+        activeClassName='active'
+        exact
+      >
         Youtube Search
-      </Link>
-      <Link to='/imageSearchPage' className='item'>
+      </NavLink>
+      <NavLink
+        to='/imageSearchPage'
+        className={`item ${!auth.token ? 'disabled' : ''}`}
+        activeClassName='active'
+        exact
+      >
         Image Search
-      </Link>
-      <Link to='/components' className='item'>
+      </NavLink>
+      <NavLink
+        to='/components'
+        className={`item ${!auth.token ? 'disabled' : ''}`}
+        activeClassName='active'
+        exact
+      >
         Components
-      </Link>
-      <Link to='/translate' className='item'>
+      </NavLink>
+      <NavLink
+        to='/translate'
+        className={`item ${!auth.token ? 'disabled' : ''}`}
+        activeClassName='active'
+        exact
+      >
         Translate
-      </Link>
-      <Link to='/searchwiki' className='item'>
+      </NavLink>
+      <NavLink
+        to='/searchwiki'
+        className={`item ${!auth.token ? 'disabled' : ''}`}
+        activeClassName='active'
+        exact
+      >
         Wiki Search
-      </Link>
-      {auth.token ? (
-        <Link onClick={logout} to='/' className='item'>
-          Logout
-        </Link>
-      ) : (
-        <>
-          <Link to='/auth/register' className='item'>
-            Register
+      </NavLink>
+      <div className='right menu'>
+        {auth.token ? (
+          <Link onClick={logout} className='item' exact>
+            Logout
           </Link>
-          <Link to='/auth/login' className='item'>
-            Login
-          </Link>
-        </>
-      )}
+        ) : (
+          <>
+            <NavLink
+              to='/auth/register'
+              className='item'
+              activeClassName='active'
+              exact
+            >
+              Register
+            </NavLink>
+            <NavLink
+              to='/auth/login'
+              className='item'
+              activeClassName='active'
+              exact
+            >
+              Login
+            </NavLink>
+          </>
+        )}
+      </div>
     </div>
   );
 };
