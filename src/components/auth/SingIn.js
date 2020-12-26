@@ -85,7 +85,7 @@ const SingIn = () => {
           <div className='error-msg'>{formik.errors.password}</div>
         ) : null}
       </div>
-      <ErrorMsg err={err} />
+      <ErrorMsg err={{ err, setErr }} />
       <button type='submit' className='ui button primary'>
         Login
       </button>
